@@ -17,19 +17,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.plugin;
+package com.ibm.plugin.rules.detection.nodejs;
 
-import com.ibm.plugin.rules.TypeScriptInventoryRule;
+import com.ibm.engine.language.typescript.tree.TypeScriptTree;
+import com.ibm.engine.rule.IDetectionRule;
 import java.util.List;
 import javax.annotation.Nonnull;
 
-/** Registry of all TypeScript SonarQube check classes for the cryptography plugin. */
-public final class TypeScriptRuleList {
+/** Aggregates all Node.js crypto detection rules. */
+public final class NodeJsCryptoDetectionRules {
 
-    private TypeScriptRuleList() {}
+    private NodeJsCryptoDetectionRules() {
+        // nothing
+    }
 
     @Nonnull
-    public static List<Class<?>> getChecks() {
-        return List.of(TypeScriptInventoryRule.class);
+    public static List<IDetectionRule<TypeScriptTree>> rules() {
+        return NodeJsCryptoCreateHash.rules();
     }
 }

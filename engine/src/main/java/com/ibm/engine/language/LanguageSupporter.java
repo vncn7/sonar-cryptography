@@ -28,6 +28,11 @@ import com.ibm.engine.language.go.GoLanguageSupport;
 import com.ibm.engine.language.go.GoScanContext;
 import com.ibm.engine.language.java.JavaLanguageSupport;
 import com.ibm.engine.language.python.PythonLanguageSupport;
+import com.ibm.engine.language.typescript.TypeScriptCheck;
+import com.ibm.engine.language.typescript.TypeScriptLanguageSupport;
+import com.ibm.engine.language.typescript.TypeScriptScanContext;
+import com.ibm.engine.language.typescript.TypeScriptSymbol;
+import com.ibm.engine.language.typescript.tree.TypeScriptTree;
 import javax.annotation.Nonnull;
 import org.sonar.go.symbols.Symbol;
 import org.sonar.plugins.go.api.Tree;
@@ -72,5 +77,12 @@ public final class LanguageSupporter {
     public static ILanguageSupport<CSharpCheck, CSharpTree, CSharpSymbol, CSharpScanContext>
             csharpLanguageSupporter() {
         return new CSharpLanguageSupport();
+    }
+
+    @Nonnull
+    public static ILanguageSupport<
+                    TypeScriptCheck, TypeScriptTree, TypeScriptSymbol, TypeScriptScanContext>
+            typescriptLanguageSupporter() {
+        return new TypeScriptLanguageSupport();
     }
 }

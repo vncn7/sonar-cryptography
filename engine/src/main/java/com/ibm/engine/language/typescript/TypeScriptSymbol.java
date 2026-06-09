@@ -17,19 +17,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.plugin;
+package com.ibm.engine.language.typescript;
 
-import com.ibm.plugin.rules.TypeScriptInventoryRule;
-import java.util.List;
 import javax.annotation.Nonnull;
 
-/** Registry of all TypeScript SonarQube check classes for the cryptography plugin. */
-public final class TypeScriptRuleList {
+/**
+ * Minimal symbol representation for TypeScript detection.
+ *
+ * <p>Since the ANTLR4 grammar provides no semantic symbol resolution (no type inference), this
+ * class holds only the identifier name.
+ */
+public final class TypeScriptSymbol {
 
-    private TypeScriptRuleList() {}
+    @Nonnull private final String name;
+
+    public TypeScriptSymbol(@Nonnull String name) {
+        this.name = name;
+    }
 
     @Nonnull
-    public static List<Class<?>> getChecks() {
-        return List.of(TypeScriptInventoryRule.class);
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "TypeScriptSymbol{" + name + "}";
     }
 }

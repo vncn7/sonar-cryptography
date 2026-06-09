@@ -17,19 +17,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.plugin;
+package com.ibm.engine.language.typescript;
 
-import com.ibm.plugin.rules.TypeScriptInventoryRule;
-import java.util.List;
+import com.ibm.engine.language.typescript.tree.TypeScriptFunctionTree;
 import javax.annotation.Nonnull;
 
-/** Registry of all TypeScript SonarQube check classes for the cryptography plugin. */
-public final class TypeScriptRuleList {
+/**
+ * Marker interface for TypeScript cryptography detection checks.
+ *
+ * <p>Since sonar-javascript exposes no custom rule registration API compatible with our
+ * ANTLR4-based approach, {@link com.ibm.plugin.CryptoTypeScriptSensor} calls {@link #scan} directly
+ * for every function scope it encounters during parsing.
+ */
+public interface TypeScriptCheck {
 
-    private TypeScriptRuleList() {}
-
-    @Nonnull
-    public static List<Class<?>> getChecks() {
-        return List.of(TypeScriptInventoryRule.class);
-    }
+    /**
+     * Invoked once per function scope (or top-level program scope) found in a TypeScript source
+     * file.
+     *
+     * @param scanContext the current scan context (input file, sensor context, repository key)
+     * @param functionTree the function scope to analyse
+     */
+    void scan(
+            @Nonnull TypeScriptScanContext scanContext,
+            @Nonnull TypeScriptFunctionTree functionTree);
 }

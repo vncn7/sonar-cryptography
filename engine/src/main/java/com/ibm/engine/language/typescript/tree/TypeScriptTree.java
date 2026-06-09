@@ -17,19 +17,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.plugin;
+package com.ibm.engine.language.typescript.tree;
 
-import com.ibm.plugin.rules.TypeScriptInventoryRule;
-import java.util.List;
 import javax.annotation.Nonnull;
 
-/** Registry of all TypeScript SonarQube check classes for the cryptography plugin. */
-public final class TypeScriptRuleList {
+/**
+ * Base interface for TypeScript AST nodes used in the detection engine.
+ *
+ * <p>Wraps ANTLR4-generated parse tree nodes and exposes only the information needed by the
+ * detection engine, keeping it free of ANTLR4 dependencies.
+ */
+public interface TypeScriptTree {
 
-    private TypeScriptRuleList() {}
+    /** Returns the 1-based line number of this node in the source file. */
+    int getLine();
 
+    /** Returns the 0-based character offset within the line. */
+    int getColumn();
+
+    /** Returns a brief human-readable description of this tree node for debugging. */
     @Nonnull
-    public static List<Class<?>> getChecks() {
-        return List.of(TypeScriptInventoryRule.class);
-    }
+    String getText();
 }

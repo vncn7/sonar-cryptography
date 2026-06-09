@@ -17,19 +17,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.plugin;
+package com.ibm.engine.language.typescript.tree;
 
-import com.ibm.plugin.rules.TypeScriptInventoryRule;
-import java.util.List;
 import javax.annotation.Nonnull;
 
-/** Registry of all TypeScript SonarQube check classes for the cryptography plugin. */
-public final class TypeScriptRuleList {
+/** Represents a TypeScript identifier (variable name, type name, etc.) used as an argument. */
+public final class TypeScriptIdentifierTree implements TypeScriptTree {
 
-    private TypeScriptRuleList() {}
+    private final int line;
+    private final int column;
+    @Nonnull private final String name;
+
+    public TypeScriptIdentifierTree(int line, int column, @Nonnull String name) {
+        this.line = line;
+        this.column = column;
+        this.name = name;
+    }
+
+    @Override
+    public int getLine() {
+        return line;
+    }
+
+    @Override
+    public int getColumn() {
+        return column;
+    }
 
     @Nonnull
-    public static List<Class<?>> getChecks() {
-        return List.of(TypeScriptInventoryRule.class);
+    @Override
+    public String getText() {
+        return name;
+    }
+
+    @Nonnull
+    public String getName() {
+        return name;
     }
 }

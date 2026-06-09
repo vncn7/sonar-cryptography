@@ -17,19 +17,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.plugin;
+package com.ibm.plugin.translation.reorganizer;
 
-import com.ibm.plugin.rules.TypeScriptInventoryRule;
+import com.ibm.mapper.reorganizer.IReorganizerRule;
 import java.util.List;
 import javax.annotation.Nonnull;
 
-/** Registry of all TypeScript SonarQube check classes for the cryptography plugin. */
-public final class TypeScriptRuleList {
+/** Reorganizer rules for the TypeScript translation pipeline. */
+public final class TypeScriptReorganizerRules {
 
-    private TypeScriptRuleList() {}
+    private TypeScriptReorganizerRules() {
+        // nothing
+    }
 
     @Nonnull
-    public static List<Class<?>> getChecks() {
-        return List.of(TypeScriptInventoryRule.class);
+    public static List<IReorganizerRule> rules() {
+        return List.of();
     }
 }
