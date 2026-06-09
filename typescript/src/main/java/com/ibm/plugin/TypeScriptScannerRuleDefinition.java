@@ -19,14 +19,21 @@
  */
 package com.ibm.plugin;
 
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Set;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.server.rule.RulesDefinition;
+import org.sonarsource.analyzer.commons.RuleMetadataLoader;
 
 /** SonarQube rule repository definition for TypeScript cryptographic rules. */
 public class TypeScriptScannerRuleDefinition implements RulesDefinition {
 
     public static final String REPOSITORY_KEY = "sonar-ts-crypto";
     public static final String REPOSITORY_NAME = "Sonar Cryptography";
+
+    private static final Set<String> RULE_TEMPLATES_KEY = Collections.emptySet();
+    private static final String RESOURCE_BASE_PATH = "/org/sonar/l10n/ts/rules/ts";
 
     private final SonarRuntime sonarRuntime;
 
@@ -36,6 +43,21 @@ public class TypeScriptScannerRuleDefinition implements RulesDefinition {
 
     @Override
     public void define(Context context) {
-        context.createRepository(REPOSITORY_KEY, "ts").setName(REPOSITORY_NAME).done();
+        NewRepository repository =
+                context.createRepository(REPOSITORY_KEY, "ts").setName(REPOSITORY_NAME);
+
+        RuleMetadataLoader ruleMetadataLoader =
+                new RuleMetadataLoader(RESOURCE_BASE_PATH, sonarRuntime);
+        ruleMetadataLoader.addRulesByAnnotatedClass(repository, TypeScriptRuleList.getChecks());
+        setTemplates(repository);
+
+        repository.done();
+    }
+
+    private static void setTemplates(NewRepository repository) {
+        RULE_TEMPLATES_KEY.stream()
+                .map(repository::rule)
+                .filter(Objects::nonNull)
+                .forEach(rule -> rule.setTemplate(true));
     }
 }

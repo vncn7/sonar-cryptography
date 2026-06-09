@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\vncnt\\\\Documents\\\\Github\\\\sonar-cryptography\\\\engine\\\\src\\\\main\\\\java\\\\com\\\\ibm\\\\engine\\\\language\\\\\" -Recurse -File | Select-Object FullName)",
+      "Bash(mvn test *)",
+      "Bash(mvn.cmd test *)",
+      "Bash(cd /mnt/c/Users/vncnt/Documents/Github/sonar-cryptography && mvn test -pl typescript -Dtest=NodeJsCryptoCreateHashTest 2>&1 | tail -60)",
+      "Read(//mnt/c/Users/vncnt/Documents/Github/**)"
+    ]
+  }
+}
